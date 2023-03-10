@@ -1,0 +1,362 @@
+from discord.ext import commands
+import os
+import discord
+import requests
+import aiohttp
+import time
+import random
+import re
+from keep_alive import keep_alive
+
+def getAccountFromFile():
+    with open('accounts.txt', 'r') as file:
+        contents = file.read()
+        accounts = contents.split('\n')
+        return accounts[random.randint(0, 30676)]
+
+def getAccountFromFile2():
+    with open('accounts2.txt', 'r') as file:
+        contents = file.read()
+        accounts = contents.split('\n')
+        return accounts[random.randint(0, 3281)]
+
+def getUserIdFromUsername(name):
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+    }
+    r = requests.get(f'https://api.roblox.com/users/get-by-username?username={name}', headers=headers)
+    userId = r.json()['Id']
+    return userId
+
+def getRandomUserId6():
+    random_user_id = getUserIdFromUsername(getAccountFromFile())
+    return random_user_id
+
+async def getOld6():
+    while True:
+        try:
+            userId = getRandomUserId6()
+            headers = {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+            }
+            async with aiohttp.ClientSession(headers=headers) as session:
+                async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp:
+                    random_user = await resp.json()
+                async with session.post('https://presence.roblox.com/v1/presence/last-online', json={'userIds': [userId]}) as resp:
+                    lastOnlineJson = await resp.json()
+                    lastOnlineYear = str(lastOnlineJson['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+                if lastOnlineYear == '2018':
+                    itemOwnedLink = f'https://inventory.roblox.com/v1/users/{userId}/items/0/1241215079/is-owned'
+                    itemOwnedLink2 = f'https://inventory.roblox.com/v1/users/{userId}/items/0/1486248929/is-owned'
+                    async with session.get(itemOwnedLink) as resp:
+                        value = str(await resp.json())
+                    async with session.get(itemOwnedLink2) as resp:
+                        value2 = str(await resp.json())
+                    if value == 'True' or value2 == 'True':
+                        return random_user['name']
+        except:
+            pass
+
+def getRandomUserId():
+    random_user_id = random.randint(12000000, 13000000)
+    return random_user_id
+
+def getRandomUserId3():
+  random_user_id = random.randint(12500000, 13000000)
+  return random_user_id
+
+def getRandomUserId4():
+  random_user_id = random.randint(12700000, 13000000)
+  return random_user_id
+
+def getRandomUserId5():
+    random_user_id = getUserIdFromUsername(getAccountFromFile2())
+    return random_user_id
+
+async def getOld5():
+    while True:
+        try:
+            userId = getRandomUserId5()
+            headers = {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+            }
+            async with aiohttp.ClientSession(headers=headers) as session:
+                async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp:
+                    random_user = await resp.json()
+                async with session.post('https://presence.roblox.com/v1/presence/last-online', json={'userIds': [userId]}) as resp:
+                    lastOnlineJson = await resp.json()
+                    lastOnlineYear = str(lastOnlineJson['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+                if lastOnlineYear == '2017' or lastOnlineYear == '2018':
+                  return random_user['name']
+        except:
+          pass
+
+async def getOld3():
+    while True:
+      try:
+        userId = getRandomUserId3()
+        async with aiohttp.ClientSession() as session:
+          async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp1:
+            random_user = await resp1.json()
+            async with session.post('https://presence.roblox.com/v1/presence/last-online', headers={'Content-Type': 'application/json'}, json={'userIds': [userId]}) as resp2:
+              response = await resp2.json()
+              lastOnline = str(response['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+              string = random_user['name']
+              numbers = re.findall(r'\d+', string)
+              if len(random_user['name']) == 11:
+                if len(numbers) == 3 or len(numbers) == 4:
+                    if lastOnline == '2010':
+                        return random_user['name']
+      except:
+          pass
+
+async def getOld4():
+    while True:
+      try:
+        userId = getRandomUserId4()
+        async with aiohttp.ClientSession() as session:
+          async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp1:
+            random_user = await resp1.json()
+            async with session.post('https://presence.roblox.com/v1/presence/last-online', headers={'Content-Type': 'application/json'}, json={'userIds': [userId]}) as resp2:
+              response = await resp2.json()
+              lastOnline = str(response['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+              if len(random_user['name']) == 12:
+                if 'jzgak' in str(random_user['name']).lower():
+                    if lastOnline == '2010':
+                        return random_user['name']
+      except:
+          pass
+
+async def getOld():
+    while True:
+      try:
+        userId = getRandomUserId()
+        async with aiohttp.ClientSession() as session:
+          async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp1:
+            random_user = await resp1.json()
+            async with session.post('https://presence.roblox.com/v1/presence/last-online', headers={'Content-Type': 'application/json'}, json={'userIds': [userId]}) as resp2:
+              response = await resp2.json()
+              lastOnline = str(response['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+              if len(random_user['name']) >= 13:
+                if str(random_user['name']).lower().endswith('dio'):
+                    if lastOnline == '2010':
+                        return random_user['name']
+      except:
+          pass
+
+async def getOld2():
+    while True:
+        try:
+            userId = getRandomUserId6()
+            headers = {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+            }
+            async with aiohttp.ClientSession(headers=headers) as session:
+                async with session.get(f'https://users.roblox.com/v1/users/{userId}') as resp:
+                    random_user = await resp.json()
+                async with session.post('https://presence.roblox.com/v1/presence/last-online', json={'userIds': [userId]}) as resp:
+                    lastOnlineJson = await resp.json()
+                    lastOnlineYear = str(lastOnlineJson['lastOnlineTimestamps'][0]['lastOnline']).split('-')[0]
+                if lastOnlineYear == '2018':
+                  return random_user['name']
+        except:
+            pass
+
+
+async def getUserIdByUsername(name):
+  async with aiohttp.ClientSession() as session:
+    async with session.post('https://users.roblox.com/v1/usernames/users', headers={'Content-Type': 'application/json'}, json={'usernames': [name]}) as resp2:
+      response = await resp2.json()
+      id = str(response['data'][0]['id'])
+      return id
+
+bulkAccs = []
+
+async def main():
+    for i in range(100):
+        string = ':l0l0l0l'
+        result = await getOld()
+        bulkAccs.append(result)
+        time.sleep(0.1)
+        bulkAccs.append(string)
+    return bulkAccs
+
+
+token = os.getenv("bot_token")
+bot_name = "Alt Generator"
+cmd_prefix = "!"
+mod_role = "Bot"
+
+intents = discord.Intents.all()
+intents.members = True
+
+bot = commands.Bot(command_prefix = cmd_prefix, intents=intents)
+bot.remove_command('help')
+
+@bot.command(name='ping', help='This will check to see if the bot is online')
+async def ping(ctx):
+  await ctx.channel.send("**Online!**", delete_after=3)
+
+@bot.event
+async def on_member_join(member):
+  await bot.get_channel(1066830022381408287).send(f"**{member.mention} has joined!**")
+
+@bot.command(name='clear', help='This command will clear messages')
+@commands.has_role(1067111743119171675)
+async def clear(ctx, amount = 5):
+    await ctx.channel.purge(limit=amount)
+    await ctx.channel.send("**Cleared " + str(amount) + "!**", delete_after=3)
+
+@bot.command(name='freegen2010', description='Generates a 2010 roblox account')
+@commands.cooldown(1, 100, commands.BucketType.user)
+async def freegen2010(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + await getOld() + '\n\nPassword: l0l0l0l```')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='premgen2010', description='Generates a 2010 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 30, commands.BucketType.user)
+async def premgen2010(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: l0l0l0l' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='premgenoffsale', description='Generates a 2010 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 200, commands.BucketType.user)
+async def premgenoffsale(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld6()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: insaneclient101' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='premgen2018', description='Generates a 2018 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 30, commands.BucketType.user)
+async def premgen2018(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld2()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: insaneclient101' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='freegen2018', description='Generates a 2018 roblox account for premium users')
+@commands.cooldown(1, 100, commands.BucketType.user)
+async def freegen2018(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld2()
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: insaneclient101' + '```')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='premgen2017', description='Generates a 2017 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 30, commands.BucketType.user)
+async def premgen2017(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld5()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: insaneclient101' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='shortgen2010', description='Generates a 2018 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 30, commands.BucketType.user)
+async def shortgen2010(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld3()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: l0l0l0l' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='realisticgen2010', description='Generates a 2018 roblox account for premium users')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 200, commands.BucketType.user)
+async def realisticgen2010(ctx):
+  if ctx.channel.id == 1074672500371374132:
+    await ctx.message.reply('**Generating... (The bot will DM you when it is finished!)**')
+    user = ctx.message.author
+    oldUser = await getOld4()
+    oldUserId = await getUserIdByUsername(str(oldUser))
+    embed = discord.Embed(title='**Account Generated**', description='```Username: ' + str(oldUser) + '\n\nPassword: l0l0l0l' + '\n\nUserId: ' + str(oldUserId) + '```' + '\n**Account Link: ' + f'https://roblox.com/users/{str(oldUserId)}/profile**')
+  embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+  await user.send(embed=embed)
+
+@bot.command(name='bulkgen2010', description='Generates 100 2010 accounts')
+@commands.has_role(1067109839274250250)
+@commands.cooldown(1, 43200, commands.BucketType.user)
+async def bulkgen2010(ctx):
+      await ctx.message.reply('**Generating... (The bot will DM you when it is finished!) Keep in mind generating 100 accounts will take a while.**')
+      user = ctx.message.author
+      accs = await main()
+      embed = discord.Embed(title='**First Lot Of Accounts Generated**', description='```Format: Username:Password\n\nAccounts:\n\n' + accs[0] + accs[1] + '\n' + accs[2] + accs[3] + '\n' + accs[4] + accs[5] + '\n' + accs[6] + accs[7] + '\n' + accs[8] + accs[9] + '\n' + accs[10] + accs[11] + '\n' + accs[12] + accs[13] + '\n' + accs[14] + accs[15] + '\n' + accs[16] + accs[17] + '\n' + accs[18] + accs[19] + '\n' + accs[20] + accs[21] + '\n' + accs[22] + accs[23] + '\n' + accs[24] + accs[25] + '\n' + accs[26] + accs[27] + '\n' + accs[28] + accs[29] + '\n' + accs[30] + accs[31] + '\n' + accs[32] + accs[33] + '\n' + accs[34] + accs[35] + '\n' + accs[36] + accs[37] + '\n' + accs[38] + accs[39] + '\n' + accs[40] + accs[41] + '\n' + accs[42] + accs[43] + '\n' + accs[44] + accs[45] + '\n' + accs[46] + accs[47] + '\n' + accs[48] + accs[49] + '\n' + accs[50] + accs[51] + '\n' + accs[52] + accs[53] + '\n' + accs[54] + accs[55] + '\n' + accs[56] + accs[57] + '\n' + accs[58] + accs[59] + '\n' + accs[60] + accs[61] + '\n' + accs[62] + accs[63] + '\n' + accs[64] + accs[65] + '\n' + accs[66] + accs[67] + '\n' + accs[68] + accs[69] + '\n' + accs[70] + accs[71] + '\n' + accs[72] + accs[73] + '\n' + accs[74] + accs[75] + '\n' + accs[76] + accs[77] + '\n' + accs[78] + accs[79] + '\n' + accs[80] + accs[81] + '\n' + accs[82] + accs[83] + '\n' + accs[84] + accs[85] + '\n' + accs[86] + accs[87] + '\n' + accs[88] + accs[89] + '\n' + accs[90] + accs[91] + '\n' + accs[92] + accs[93] + '\n' + accs[94] + accs[95] + '\n' + accs[96] + accs[97] + '\n' + accs[98] + accs[99] + '```')
+      embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+      await user.send(embed=embed)
+      embed2 = discord.Embed(title='**Second Lot Of Accounts Generated**', description= '```' + accs[100] + accs[101] + '\n' + accs[102] + accs[103] + '\n' + accs[104] + accs[105] + '\n' + accs[106] + accs[107] + '\n' + accs[108] + accs[109] + '\n' + accs[110] + accs[111] + '\n' + accs[112] + accs[113] + '\n' + accs[114] + accs[115] + '\n' + accs[116] + accs[117] + '\n' + accs[118] + accs[119] + '\n' + accs[120] + accs[121] + '\n' + accs[122] + accs[123] + '\n' + accs[124] + accs[125] + '\n' + accs[126] + accs[127] + '\n' + accs[128] + accs[129] + '\n' + accs[130] + accs[131] + '\n' + accs[132] + accs[133] + '\n' + accs[134] + accs[135] + '\n' + accs[136] + accs[137] + '\n' + accs[138] + accs[139] + '\n' + accs[140] + accs[141] + '\n' + accs[142] + accs[143] + '\n' + accs[144] + accs[145] + '\n' + accs[146] + accs[147] + '\n' + accs[148] + accs[149] + '\n' + accs[150] + accs[151] + '\n' + accs[152] + accs[153] + '\n' + accs[154] + accs[155] + '\n' + accs[156] + accs[157] + '\n' + accs[158] + accs[159] + '\n' + accs[160] + accs[161] + '\n' + accs[162] + accs[163] + '\n' + accs[164] + accs[165] + '\n' + accs[166] + accs[167] + '\n' + accs[168] + accs[169] + '\n' + accs[170] + accs[171] + '\n' + accs[172] + accs[173] + '\n' + accs[174] + accs[175] + '\n' + accs[176] + accs[177] + '\n' + accs[178] + accs[179] + '\n' + accs[180] + accs[181] + '\n' + accs[182] + accs[183] + '\n' + accs[184] + accs[185] + '\n' + accs[186] + accs[187] + '\n' + accs[188] + accs[189] + '\n' + accs[190] + accs[191] + '\n' + accs[192] + accs[193] + '\n' + accs[194] + accs[195] + '\n' + accs[196] + accs[197] + '\n' + accs[198] + accs[199] + '```')
+      embed.set_author(name='! Sam#5861', icon_url='https://staticg.sportskeeda.com/editor/2022/08/24ed4-16614282530822-1920.jpg')
+      await user.send(embed=embed2)
+      for i in range(200):
+        bulkAccs.pop()
+  
+@commands.has_permissions(kick_members=True)
+@bot.command()
+async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
+        await user.kick(reason=reason)
+
+@bot.command()
+@commands.has_role(1067111743119171675)
+async def ban(ctx, member:discord.User, *, reason=None):
+    if reason == None:
+        reason = f"No Reason Provided"
+    await ctx.guild.ban(member, reason=reason)
+
+@bot.command(name='joke', help='sends a joke')
+async def joke(ctx):
+  url = "https://api.dadjokes.io/api/random/joke"
+  response = requests.get(url)
+  setup = response.json()["body"][0]["setup"]
+  punchline = response.json()["body"][0]["punchline"]
+  await ctx.channel.send(setup + '\n\n' + punchline)
+
+@bot.command()
+@commands.has_role(1067111743119171675)
+async def unban(ctx, member:discord.User, *, reason=None):
+    if reason == None:
+        reason = f"No Reason Provided"
+    await ctx.guild.unban(member, reason=reason)
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        await ctx.reply(f'**Command cooldown. Try again in {error.retry_after:.0f} seconds!**')
+      
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=discord.Game(name='https://discord.gg/zQv7pb7TfK'))
+
+keep_alive()
+bot.run(token)
