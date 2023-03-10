@@ -5,7 +5,6 @@ import requests
 import aiohttp
 import time
 import random
-import asyncio
 import re
 from keep_alive import keep_alive
 
@@ -57,7 +56,6 @@ async def getOld6():
                         return random_user['name']
         except:
             pass
-        await asyncio.sleep(1)
 
 def getRandomUserId():
     random_user_id = random.randint(12000000, 13000000)
@@ -92,7 +90,6 @@ async def getOld5():
                   return random_user['name']
         except:
           pass
-        await asyncio.sleep(1)
 
 async def getOld3():
     while True:
